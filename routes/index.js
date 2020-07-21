@@ -10,8 +10,29 @@ router.get('/corps', (req, res) => {
     logo: '.item .corps-logo img@src',
     city: '.item .city',
     website: '.item .info a@href'
-  }])((err, data) => {
-    res.json(data);
+  }])
+  .then((corps) => {
+    res.json(corps);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.send('Something wrong');
+  })
+})
+
+router.get('/top-stories', (req, res) => {
+  x('https://www.dci.org/news', 'div .news-list', [{
+    title: '.item .news-title',
+    author: '.item p',
+    news_link: '.item .link@href'
+  }])
+  .then((scores) => {
+    console.log(scores)
+    res.json(scores);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.send('Something wrong');
   })
 })
 
